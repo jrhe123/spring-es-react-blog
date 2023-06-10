@@ -1,9 +1,19 @@
 # spring-es-react-blog
 
+### Postman collection (attached file)
+
+- get all index
+- create index
+- delete index
+- add data to index
+- search data
+
 ### Elastic search & Kibana
 
 - ES
+
   - https://hub.docker.com/_/elasticsearch
+  - https://www.elastic.co/guide/en/welcome-to-elastic/current/getting-started-general-purpose.html
   - version: 8.8.0
 
 - Kibana
@@ -124,7 +134,3 @@
 
 <img width="1184" alt="Screenshot 2023-06-10 at 9 44 14 AM" src="https://github.com/jrhe123/spring-es-react-blog/assets/17329299/03749341-ef8f-4e2f-8cbe-a14c4d986032">
 <img width="1184" alt="Screenshot 2023-06-10 at 9 46 31 AM" src="https://github.com/jrhe123/spring-es-react-blog/assets/17329299/99465a34-e655-4b0d-a534-f70347f1139f">
-
-
-
-
