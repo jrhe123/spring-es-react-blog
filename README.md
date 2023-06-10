@@ -12,6 +12,13 @@
 
 ### Steps to setup environment
 
+#### -1. Docker compose
+
+- docker-compose up
+- docker volume prune
+- check your es
+  - localhost:9200/\_all
+
 #### 0. Create docker bridge network (we want to connect es & kibana within same network)
 
 - docker network ls
