@@ -1,0 +1,39 @@
+OR: POST person/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "first_name": "Eric"
+          }
+        },
+        {
+          "match": {
+            "about": "basketball"
+          }
+        }
+      ]
+    }
+  }
+}
+
+AND: POST person/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "first_name": "Eric"
+          }
+        },
+        {
+          "match": {
+            "about": "basketball"
+          }
+        }
+      ]
+    }
+  }
+}
