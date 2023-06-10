@@ -19,7 +19,13 @@
   - version: 8.8.0
 
 - Kibana
+
   - https://hub.docker.com/_/kibana
+  - version: 8.8.0
+
+- logstash
+
+  - https://hub.docker.com/_/logstash
   - version: 8.8.0
 
 ### Steps to setup environment
