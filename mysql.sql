@@ -5,5 +5,9 @@ Create table spring_es_react_blog.`t_blog` (
     `content` mediumtext,
     `create_time` datetime DEFAULT NULL,
     `update_time` datetime DEFAULT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX index_title_author (title, author),
+    FULLTEXT INDEX index_content (content)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+
+select * from t_blog where title like "%spring%" or content like "%spring%";
