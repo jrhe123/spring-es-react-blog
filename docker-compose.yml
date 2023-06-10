@@ -44,6 +44,18 @@ services:
     depends_on:
       - es01
 
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: spring_es_react_blog
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 33066:3306
+
 volumes:
   esdata01:
     driver: local
