@@ -18,6 +18,7 @@ public class Blog {
 	
 	private String author;
 	
+	@Column(columnDefinition = "TEXT")
 	private String content;
 	
 	private Date createTime;
