@@ -11,6 +11,19 @@ import com.example.blog.entity.es.EsBlog;
 @Repository
 public interface EsBlogRepository extends ElasticsearchRepository<EsBlog, Integer> {
 
+	/**
+	 * 
+	 * {
+		  "query": {
+		    "match": {
+		      "title": {
+		        "query": "article xxx"
+		      }
+		    }
+		  }
+		}
+	 */
+	
 	@Query("{\"match\": {\"title\": {\"query\": \"?0\"}}}")
     Page<EsBlog> findByTitle(String title, Pageable pageable);
 	
