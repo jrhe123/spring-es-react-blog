@@ -4,6 +4,7 @@
 
 ### Postman collection (attached file)
 
+- Auth -> Basic Auth -> username & password: elastic & changeme
 - get all index
 - create index
 - delete index
