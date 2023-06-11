@@ -1,6 +1,7 @@
 package com.example.blog.service.es;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class EsBlogService {
 	private EsBlogRepository esBlogRepository;
 	
 	public EsBlog createBlog(EsBlog blog) {
+		blog.setCreateTime(new Date());
+		blog.setUpdateTime(new Date());
         return esBlogRepository.save(blog);
     }
 
@@ -24,6 +27,7 @@ public class EsBlogService {
     }
 
     public EsBlog updateBlog(EsBlog blog) {
+    	blog.setUpdateTime(new Date());
         return esBlogRepository.save(blog);
     }
 

@@ -31,9 +31,21 @@ public class BlogController {
 		System.out.println("pass here");
     }
 	
+//	@GetMapping("/populate")
+//    public String populate() {
+//    	for(int i = 0; i < 50; i++) {
+//    		MysqlBlog blog = new MysqlBlog();
+//    		blog.setTitle("this is title " + i);
+//    		blog.setAuthor("this is author " + i);
+//    		blog.setContent("this is content " + i);
+//    		blogService.createBlog(blog);
+//    	}
+//    	return "done";
+//    }
+//	
 	@GetMapping("")
     public List<MysqlBlog> getAllBlog(){
-        return blogService.getAllBlog();
+        return blogService.queryAll();
     }
 	
 	@PostMapping("")

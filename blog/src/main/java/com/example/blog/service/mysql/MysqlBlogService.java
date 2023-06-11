@@ -14,6 +14,12 @@ public class MysqlBlogService {
 	@Autowired
 	private MysqlBlogRepository blogRepository;
 	
+	public List<MysqlBlog> queryAll() {
+        return blogRepository.queryAll();
+    }
+	
+	// ==========================================
+	
 	public MysqlBlog createBlog(MysqlBlog blog) {
         return blogRepository.save(blog);
     }
