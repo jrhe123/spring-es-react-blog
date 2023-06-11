@@ -24,6 +24,11 @@ public class BlogController {
 	@Autowired
 	private MysqlBlogService blogService;
 	
+	@GetMapping("test")
+    public void test(){
+		System.out.println("app is running");
+    }
+	
 	@GetMapping("")
     public List<MysqlBlog> getAllBlog(){
         return blogService.getAllBlog();
