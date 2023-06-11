@@ -31,7 +31,6 @@ http_ca.crt
 # compiled output
 /dist
 /node_modules
-/.dbdata
 
 # jar
-mysql-connector/src/
+mysql/mysql-connector.zip

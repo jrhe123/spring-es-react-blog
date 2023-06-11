@@ -28,6 +28,12 @@
   - https://hub.docker.com/_/logstash
   - version: 8.8.0
 
+### Logstash migrate data from mysql to es
+
+- https://github.com/dimMaryanto93/docker-logstash-input-jdbc
+- https://github.com/elkninja/elastic-stack-docker-part-one/tree/main
+- cmd: logstash -f logstash.conf
+
 ### Steps to setup environment
 
 #### -1. Docker compose
