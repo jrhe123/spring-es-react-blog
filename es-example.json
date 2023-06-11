@@ -1,3 +1,32 @@
+test query:
+
+POST /blog/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match_phrase": {
+            "title": "title"
+          }
+        },
+        {
+          "match_phrase": {
+            "author": "title"
+          }
+        },
+        {
+          "match_phrase": {
+            "content": "title"
+          }
+        }
+      ]
+    }
+  }
+}
+
+================
+
 OR: POST person/_search
 {
   "query": {

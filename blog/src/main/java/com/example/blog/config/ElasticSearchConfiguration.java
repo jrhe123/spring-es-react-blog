@@ -63,5 +63,7 @@ class ElasticSearchConfiguration extends ElasticsearchConfiguration {
         context.init(null, tmf.getTrustManagers(), null);
         return context;
     }
+    
+    
 
 }

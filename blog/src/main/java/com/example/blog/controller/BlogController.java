@@ -1,10 +1,12 @@
 package com.example.blog.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.blog.dto.BlogSearchDTO;
 import com.example.blog.entity.mysql.MysqlBlog;
+import com.example.blog.service.es.EsBlogService;
 import com.example.blog.service.mysql.MysqlBlogService;
 
 @RestController
@@ -24,6 +27,9 @@ public class BlogController {
 	
 	@Autowired
 	private MysqlBlogService blogService;
+	
+	@Autowired
+	private EsBlogService esBlogService;
 
 	
 	@GetMapping("test")
@@ -46,15 +52,33 @@ public class BlogController {
 //	
 	@GetMapping("")
     public List<MysqlBlog> getAllBlog(){
+		// mysql
         return blogService.queryAll();
     }
 	
 	@PostMapping("search")
-    public List<MysqlBlog> searchBlog(
+    public HashMap searchBlog(
     		@RequestBody BlogSearchDTO blogSearchDTO
     		){
-//		if (blogSearchDTO.getType())
-        return blogService.queryAll();
+		StopWatch watch = new StopWatch();
+		watch.start();
+		
+		HashMap<String, Object> resultHashMap = new HashMap<>();
+		if (blogSearchDTO.getType().equalsIgnoreCase("es")) {
+			// es
+			
+		} else {
+			// default mysql
+			List<MysqlBlog> blogs = blogService.queryBlogs(blogSearchDTO.getKeyword());
+			resultHashMap.put("blogs", blogs);
+		}
+		
+		watch.stop();
+		long totalTimeMillis = watch.getTotalTimeMillis();
+		
+		resultHashMap.put("duration", totalTimeMillis);
+		
+        return resultHashMap;
     }
 	
 	

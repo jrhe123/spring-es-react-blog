@@ -11,3 +11,13 @@ Create table spring_es_react_blog.`t_blog` (
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4;
 
 select * from t_blog where title like "%spring%" or content like "%spring%";
+
+ALTER TABLE `spring_es_react_blog`.`t_blog` 
+ADD FULLTEXT INDEX `index_title_author_content` (`title`, `author`, `content`) VISIBLE;
+;
+
+explain SELECT * FROM spring_es_react_blog.t_blog
+	where title like "%title%"
+    or author like "%title%"
+    or content like "%title%"
+    order by create_time desc;

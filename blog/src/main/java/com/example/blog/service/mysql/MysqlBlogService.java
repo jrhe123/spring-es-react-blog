@@ -18,6 +18,10 @@ public class MysqlBlogService {
         return blogRepository.queryAll();
     }
 	
+	public List<MysqlBlog> queryBlogs(String keyword) {
+		return blogRepository.queryBlogs(keyword);
+	}
+	
 	// ==========================================
 	
 	public MysqlBlog createBlog(MysqlBlog blog) {
