@@ -135,4 +135,3 @@ xpack.security.http.ssl.certificate: certs/es01.crt
 xpack.security.http.ssl.certificate_authorities: certs/ca.crt
 
 
-

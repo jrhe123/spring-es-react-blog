@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.blog.dto.BlogSearchDTO;
 import com.example.blog.entity.mysql.MysqlBlog;
 import com.example.blog.service.mysql.MysqlBlogService;
 
@@ -47,6 +48,18 @@ public class BlogController {
     public List<MysqlBlog> getAllBlog(){
         return blogService.queryAll();
     }
+	
+	@PostMapping("search")
+    public List<MysqlBlog> searchBlog(
+    		@RequestBody BlogSearchDTO blogSearchDTO
+    		){
+//		if (blogSearchDTO.getType())
+        return blogService.queryAll();
+    }
+	
+	
+	// ===========================================
+	
 	
 	@PostMapping("")
     public MysqlBlog createBlog(@RequestBody MysqlBlog blog) {
