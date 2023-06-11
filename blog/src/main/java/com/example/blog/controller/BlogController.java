@@ -18,19 +18,24 @@ import com.example.blog.entity.Blog;
 import com.example.blog.service.BlogService;
 
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/blogs")
 public class BlogController {
 	
 	@Autowired
 	private BlogService blogService;
 	
-	@PostMapping("/blog")
+	@GetMapping("/")
+    public List<Blog> getAllBlog(){
+        return blogService.getAllBlog();
+    }
+	
+	@PostMapping("/")
     public Blog createBlog(@RequestBody Blog blog) {
 		blog.setCreateTime(new Date());
         return blogService.createBlog(blog);
     }
 
-    @GetMapping("/blog/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Blog> getBlogById(@PathVariable int id) {
     	Blog blog = blogService.getBlogById(id);
         if (blog == null) {
@@ -39,7 +44,7 @@ public class BlogController {
         return ResponseEntity.ok(blog);
     }
 
-    @PutMapping("/blog/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Blog> updateBlog(
     		@RequestBody Blog blog,@PathVariable int id){
     	Blog blogFromDb = blogService.getBlogById(id);
@@ -52,11 +57,6 @@ public class BlogController {
         blogFromDb.setUpdateTime(new Date());
         Blog updatedBlog = blogService.updateBlog(blogFromDb);
         return ResponseEntity.ok(updatedBlog);
-    }
-
-    @GetMapping("/blogs")
-    public List<Blog> getAllBlog(){
-        return blogService.getAllBlog();
     }
 
     @DeleteMapping("/{id}")
