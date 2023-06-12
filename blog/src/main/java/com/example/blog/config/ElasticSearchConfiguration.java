@@ -9,15 +9,44 @@ import java.security.cert.CertificateFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
+import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
+import org.elasticsearch.client.RestClientBuilder.HttpClientConfigCallback;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.client.ClientConfiguration;
-import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import co.elastic.clients.transport.ElasticsearchTransport;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
 import lombok.SneakyThrows;
 
+
+//class ElasticSearchConfiguration extends ElasticsearchConfiguration {
+//@Override
+//public ClientConfiguration clientConfiguration() {
+//  ClientConfiguration clientConfiguration = ClientConfiguration.builder()
+//		        .connectedTo(hostAndPort)
+//		        .usingSsl(getSSLContext())
+//		        .withBasicAuth(username, password)
+//		        .build();
+//	
+//  return clientConfiguration;
+//}
+//}
+
+// https://www.pixeltrice.com/spring-boot-elasticsearch-crud-example/
+// https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/current/_encrypted_communication.html
+
 @Configuration
-class ElasticSearchConfiguration extends ElasticsearchConfiguration {
+class ElasticSearchConfiguration {
 
     @Value("${spring.elasticsearch.client.certificate}")
     private String certificateBase64;
@@ -31,15 +60,43 @@ class ElasticSearchConfiguration extends ElasticsearchConfiguration {
     @Value("${elasticsearch.host}")
     private String hostAndPort;
 
-    @Override
-	public ClientConfiguration clientConfiguration() {
-        ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-			        .connectedTo(hostAndPort)
-			        .usingSsl(getSSLContext())
-			        .withBasicAuth(username, password)
-			        .build();
-		
-        return clientConfiguration;
+    @Bean
+    public RestClient getRestClient () {
+    	final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(AuthScope.ANY,
+                new UsernamePasswordCredentials("elastic", "changeme"));
+        
+    	SSLContext sslContext = getSSLContext();
+    	
+    	RestClientBuilder builder = RestClient.builder(
+    			new HttpHost("localhost", 9200, "https")
+    			).setHttpClientConfigCallback(new HttpClientConfigCallback() {
+					@Override
+					public HttpAsyncClientBuilder customizeHttpClient(
+							HttpAsyncClientBuilder httpClientBuilder) {
+						httpClientBuilder.disableAuthCaching();
+						return httpClientBuilder
+								.setSSLContext(sslContext)
+								.setDefaultCredentialsProvider(credentialsProvider);
+					}
+    				
+    			});
+    	
+    	RestClient restClient = builder.build();
+        return restClient;
+    }
+
+    @Bean
+    public  ElasticsearchTransport getElasticsearchTransport() {
+        return new RestClientTransport(
+                getRestClient(), new JacksonJsonpMapper());
+    }
+
+
+    @Bean
+    public ElasticsearchClient getElasticsearchClient(){
+        ElasticsearchClient client = new ElasticsearchClient(getElasticsearchTransport());
+        return client;
     }
 
     @SneakyThrows
@@ -63,7 +120,5 @@ class ElasticSearchConfiguration extends ElasticsearchConfiguration {
         context.init(null, tmf.getTrustManagers(), null);
         return context;
     }
-    
-    
 
 }

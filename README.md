@@ -11,6 +11,11 @@
 - add data to index
 - search data
 
+### ES Java Client
+
+- https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/current/index.html
+- https://www.pixeltrice.com/spring-boot-elasticsearch-crud-example/
+
 ### Elastic search & Kibana
 
 - ES
@@ -42,7 +47,7 @@
 - docker-compose up
 - docker volume prune
 - check your es
-  - https://localhost:9200/_all
+  - https://localhost:9200/\_all
 
 #### 0. Create docker bridge network (we want to connect es & kibana within same network)
 

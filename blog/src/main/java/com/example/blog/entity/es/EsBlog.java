@@ -8,9 +8,13 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown=true)
 @Document(
 		indexName = "blog",
 		createIndex = false
@@ -29,11 +33,13 @@ public class EsBlog {
 	@Field(type = FieldType.Text, analyzer = "standard", name = "content")
 	private String content;
 	
+	@JsonProperty("create_time")
 	@Field(type = FieldType.Date, format = DateFormat.date,
-			pattern = "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis")
+			pattern = "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis", name = "create_time")
 	private Date createTime;
 	
+	@JsonProperty("update_time")
 	@Field(type = FieldType.Date, format = DateFormat.date,
-			pattern = "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis")
+			pattern = "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis", name = "update_time")
 	private Date updateTime;
 }
