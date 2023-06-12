@@ -38,6 +38,7 @@ public class EsBlog {
 			pattern = "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis", name = "create_time")
 	private Date createTime;
 	
+	// https://stackoverflow.com/questions/50528299/query-elasticsearch-using-spring-data-elasticsearch-with-fields-containing-under
 	@JsonProperty("update_time")
 	@Field(type = FieldType.Date, format = DateFormat.date,
 			pattern = "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis", name = "update_time")
