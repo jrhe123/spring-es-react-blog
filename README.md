@@ -1,6 +1,8 @@
 # spring-es-react-blog
 
 ### Performance: MySQL vs Elastic search
+![Jun-11-2023 22-10-28](https://github.com/jrhe123/spring-es-react-blog/assets/17329299/a2164bc9-4945-4438-88c0-15839eae2dee)
+
 
 ### Postman collection (attached file)
 
